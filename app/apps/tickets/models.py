@@ -20,3 +20,14 @@ class Ticket(models.Model):
                 models.Index(fields=['status']),
                 models.Index(fields=['created_at'])
             ]
+
+class TicketMessage(models.Model):
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name="messages")
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class MessageAttachment(models.Model):
+    message = models.ForeignKey(TicketMessage, on_delete=models.CASCADE, related_name="attachments")
+    image = models.ImageField(upload_to="tickets/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
