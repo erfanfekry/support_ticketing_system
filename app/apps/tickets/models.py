@@ -10,8 +10,13 @@ class Status(models.TextChoices):
 
 class Ticket(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="ticket")
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tickets")
     status = models.CharField(max_length=4, choices=Status.choices, default=Status.OPEN)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     closed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+            indexes = [
+                models.Index(fields=['status']),
+                models.Index(fields=['created_at'])
+            ]

@@ -19,5 +19,6 @@ class Order(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['status'])
+            models.Index(fields=['status']),
+            models.Index(fields=['created_at'])
         ]
