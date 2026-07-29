@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from apps.orders.serializers import *
 
 
 class TicketCreateSerializer(serializers.Serializer):
@@ -31,3 +32,11 @@ class TicketMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = TicketMessage
         fields = ["id", "sender", "message", "created_at", "attachments"]
+
+
+class TicketDetailSerializer(serializers.ModelSerializer):
+    messages = TicketMessageSerializer(many=True, read_only=True)
+    driver = DriverSerializer(source="order.driver", read_only=True)
+    class Meta:
+        model = Ticket
+        fields = ["id", "status", "created_at", "messages", "driver"]
