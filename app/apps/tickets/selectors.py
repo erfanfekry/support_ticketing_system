@@ -1,6 +1,8 @@
 from django.db.models import Prefetch
 from apps.orders.models import *
 from apps.tickets.models import *
+from django.shortcuts import get_object_or_404
+
 
 
 def get_ticket_detail(ticket_id):
@@ -28,3 +30,10 @@ def get_delivered_tickets():
     .select_related("order","order__customer")
 
     return delivered_tickets
+
+
+
+def get_order(order_id, user):
+    order = get_object_or_404(Order.objects.select_related("driver"), id=order_id, customer=user)
+
+    return order
