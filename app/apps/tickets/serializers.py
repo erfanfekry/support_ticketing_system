@@ -23,3 +23,11 @@ class MessageAttachmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = MessageAttachment
         fields = ["id", "image", "uploaded_at"]        
+
+
+class TicketMessageSerializer(serializers.ModelSerializer):
+    attachments = MessageAttachmentSerializer(many=True,read_only=True)
+    sender = serializers.CharField(source="sender.username")
+    class Meta:
+        model = TicketMessage
+        fields = ["id", "sender", "message", "created_at", "attachments"]
