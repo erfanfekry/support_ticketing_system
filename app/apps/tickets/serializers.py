@@ -9,6 +9,7 @@ class TicketCreateSerializer(serializers.Serializer):
     description = serializers.CharField(required=False)
     image = serializers.ImageField(required=False)
 
+
 class TicketListSerializer(serializers.ModelSerializer):
     order_id = serializers.IntegerField(source="order.id")
     customer = serializers.CharField(source="order.customer.username")
