@@ -1,16 +1,30 @@
 from django.db.models import Prefetch
+from apps.orders.models import *
 from apps.tickets.models import *
 
 
 def get_ticket_detail(ticket_id):
-    ticket = Ticket.objects.select_related("order", "order__driver", "order__customer") \
+    client_ticket_list = Ticket.objects.select_related("order", "order__driver", "order__customer") \
     .prefetch_related(Prefetch("messages", queryset=TicketMessage.objects.prefetch_related("attachments"))) \
     .get(id=ticket_id)
 
-    return ticket
+    return client_ticket_list
 
     
 def get_user_tickets(user):
     tickets = Ticket.objects.filter(order__customer=user).select_related("order").order_by("-created_at")
 
     return tickets
+
+
+def get_admin_ticket_list():
+    admin_ticket_list = Ticket.objects.select_related("order", "order__customer").order_by("-created_at")
+
+    return admin_ticket_list
+
+
+def get_delivered_tickets():
+    delivered_tickets = Ticket.objects.filter(order__status=OrderStatus.DELIVERED) \
+    .select_related("order","order__customer")
+
+    return delivered_tickets
