@@ -68,6 +68,47 @@ The application will automatically:
 * Start Gunicorn
 * Start Nginx
 
+## Sample Data
+
+A sample fixture is included to make it easy to evaluate the application without manually creating users, orders, drivers, and tickets.
+
+After starting the containers, load the sample data:
+
+```bash
+docker compose exec web python manage.py loaddata seed_data
+```
+
+The fixture includes:
+
+* 3 Sample customers
+* A staff (admin) user
+* Sample drivers
+* 5 Orders in different statuses (e.g. preparation, shipped, delivered)
+* 5 Support tickets
+* Ticket conversations
+
+This data allows all customer and admin endpoints to be exercised immediately through the API or Swagger UI.
+
+> **Note:** If the database already contains data, loading the fixture may fail due to duplicate primary keys or unique constraints. For a fresh start, remove the existing database volume and recreate the containers before loading the fixture.
+
+If needed, recreate the database with:
+
+```bash
+docker compose down -v
+docker compose up --build
+docker compose exec web python manage.py loaddata seed_data
+```
+
+### Test Credentials
+
+| Role     | Username              | Password              |
+| -------- | --------------------- | --------------------- |
+| Admin    | `Admin`    | `Admin123456`    |
+| Customer(1) | `Ali` | `User123456` |
+| Customer(2) | `Shayan` | `User123456` |
+| Customer(3) | `Zahra ` | `User123456` |
+
+
 ## Stop the application
 
 ```bash
