@@ -11,9 +11,9 @@ class OrderStatus(models.TextChoices):
 
 class Order(models.Model):
 
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     driver = models.ForeignKey(Driver, null=True, blank=True, on_delete=models.SET_NULL)
-    status = models.CharField(max_length=30, choices=OrderStatus.choices)
+    status = models.CharField(max_length=30, choices=OrderStatus.choices, default=OrderStatus.WAITING_FOR_PAYMENT)
     delivered_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

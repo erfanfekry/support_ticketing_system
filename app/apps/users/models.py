@@ -6,7 +6,7 @@ class User(AbstractUser):
     last_seen = models.DateTimeField(null=True, blank=True) # Ticket's last seen 
 
     def __str__(self):
-        return self.phone
+        return self.first_name + ' ' + self.last_name
 
 
 class Driver(models.Model):
