@@ -120,30 +120,6 @@ To also remove the database volume:
 ```bash
 docker compose down -v
 ```
-
-
-# Running the Project
-
-## Prerequisites
-
-* Docker
-* Docker Compose
-
-## Start the application
-
-```bash
-docker compose up --build
-```
-
-The application will automatically:
-
-* Build the Docker images
-* Start PostgreSQL
-* Apply database migrations
-* Collect static files
-* Start Gunicorn
-* Start Nginx
-
 ---
 
 # API Documentation
