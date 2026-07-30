@@ -3,7 +3,7 @@ from apps.users.models import User, Driver
 
 
 class OrderStatus(models.TextChoices):
-    WAITING_FOR_PAYMENT = "WPAY", "Waiting For Payment"
+    WAITING_FOR_PAYMENT = "APAY", "Awaiting payment"
     PAID = "PAID", "Paid"
     PREPARATION = "PREP", "In Preparation"
     SHIPPED = "SHPD", "Shipped"

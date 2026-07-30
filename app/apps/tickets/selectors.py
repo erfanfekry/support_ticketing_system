@@ -41,6 +41,6 @@ def get_order(order_id, user):
 
 def get_customer_tickets(user):
     customer_tickets = Ticket.objects.select_related("order", "order__customer") \
-    .annotate(last_message_time=Max("messages__created_at"))
+    .annotate(last_message_time=Max("messages__created_at__time")).filter(order__customer=user)
 
     return customer_tickets

@@ -1,10 +1,10 @@
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-from apps.tickets.serializers import TicketCreateSerializer, TicketListSerializer
+from apps.tickets.serializers import TicketCreateSerializer, TicketListSerializer, TicketDetailSerializer
 from apps.tickets.selectors import get_customer_tickets
 from apps.tickets.services import TicketService
+from .permissions import IsOwner
 
 
 class CustomerTicketListCreateAPIView(generics.GenericAPIView):
@@ -37,3 +37,10 @@ class CustomerTicketListCreateAPIView(generics.GenericAPIView):
         response_serializer = self.get_serializer(ticket)
 
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
+class CustomerTicketDetailAPIView(generics.RetrieveAPIView):
+        permission_classes = [IsAuthenticated]
+        serializer_class = TicketDetailSerializer
+        def get_queryset(self):
+            return get_customer_tickets(self.request.user)
+
