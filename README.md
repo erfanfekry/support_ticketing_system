@@ -140,6 +140,7 @@ After the application starts:
 
 | Method | Endpoint                      | Description                 |
 | ------ | ----------------------------- | --------------------------- |
+| GET    | `/api/orders/`                | list customer's orders |
 | POST   | `/api/tickets/`               | Create a new support ticket |
 | GET    | `/api/tickets/`               | List customer's tickets     |
 | GET    | `/api/tickets/{id}/`          | Retrieve ticket details     |
