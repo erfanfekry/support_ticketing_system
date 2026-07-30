@@ -167,6 +167,8 @@ Customer endpoints require an authenticated customer.
 
 Admin endpoints require an authenticated staff user.
 
+*You can use the provided **Test Credentials** to authenticate.
+
 ---
 
 # Notifications
