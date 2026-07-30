@@ -82,7 +82,7 @@ The fixture includes:
 
 * 3 Sample customers
 * A staff (admin) user
-* Sample drivers
+* 3 Sample drivers
 * 5 Orders in different statuses (e.g. preparation, shipped, delivered)
 * 5 Support tickets
 * Ticket conversations
