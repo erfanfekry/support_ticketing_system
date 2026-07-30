@@ -10,6 +10,7 @@ A Django REST Framework application for managing customer support tickets relate
 * Ticket filtering and ordering
 * Driver information in ticket details
 * Email notification support (console backend)
+* SMS notification support (printed in console)
 * OpenAPI / Swagger documentation
 * Docker Compose deployment
 * Nginx reverse proxy
@@ -17,7 +18,7 @@ A Django REST Framework application for managing customer support tickets relate
 
 ## Tech Stack
 
-* Python 3.12
+* Python 3.11
 * Django
 * Django REST Framework
 * PostgreSQL
@@ -122,11 +123,15 @@ Nginx forwards API requests to Gunicorn and serves static files directly.
 .
 ├── apps/
 ├── config/
+├── media/
 ├── nginx/
-├── requirements.txt
+├── .dockerignore
+├── .env
+├── .gitignore
 ├── Dockerfile
 ├── docker-compose.yml
 ├── manage.py
+├── requirements.txt
 └── README.md
 ```
 
@@ -137,8 +142,9 @@ Nginx forwards API requests to Gunicorn and serves static files directly.
 The project follows a layered architecture to separate responsibilities:
 
 * **Views** handle HTTP requests and responses.
-* **Serializers** validate and serialize API data.
+* **Serializers** serialize API data.
 * **Selectors** encapsulate database queries.
+* **Validators** Validate  API data.
 * **Services** contain business logic such as creating ticket messages and sending notifications.
 
 This structure keeps views lightweight, improves maintainability, and simplifies testing.
