@@ -1,4 +1,4 @@
-# Support Ticket API
+# Support Ticketing System API
 
 A Django REST Framework application for managing customer support tickets related to orders. The project provides separate APIs for customers and support staff, supports ticket conversations, notifications, and includes a Docker-based deployment with Nginx as a reverse proxy.
 
