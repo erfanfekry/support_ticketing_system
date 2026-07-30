@@ -1,7 +1,8 @@
 from django.db.models import Prefetch
-from apps.orders.models import *
-from apps.tickets.models import *
+from apps.orders.models import Order, OrderStatus
+from apps.tickets.models import Ticket,TicketMessage
 from django.shortcuts import get_object_or_404
+from django.db.models import Max, Count, Q
 
 
 
@@ -37,3 +38,9 @@ def get_order(order_id, user):
     order = get_object_or_404(Order.objects.select_related("driver"), id=order_id, customer=user)
 
     return order
+
+def get_customer_tickets(user):
+    customer_tickets = Ticket.objects.select_related("order", "order__customer") \
+    .annotate(last_message_time=Max("messages__created_at"))
+
+    return customer_tickets

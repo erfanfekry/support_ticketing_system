@@ -5,7 +5,7 @@ from apps.orders.models import Order
 
 class TicketStatus(models.TextChoices):
     OPEN = 'OPEN', 'Open'
-    InProgress = 'INPR', 'In progress'
+    InProgress = 'PEND', 'Pending'
     CLOSED = 'CLSD', 'Closed'
 
 class Ticket(models.Model):
@@ -20,6 +20,8 @@ class Ticket(models.Model):
                 models.Index(fields=['status']),
                 models.Index(fields=['created_at'])
             ]
+    def __str__(self):
+         return f'Ticket of oreder id: {self.order.id}'
 
 class TicketMessage(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name="messages")

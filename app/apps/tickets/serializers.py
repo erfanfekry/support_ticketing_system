@@ -13,12 +13,12 @@ class TicketCreateSerializer(serializers.Serializer):
 class TicketListSerializer(serializers.ModelSerializer):
     order_id = serializers.IntegerField(source="order.id")
     customer = serializers.CharField(source="order.customer.username")
-    last_message_time = serializers.SerializerMethodField() # Will be defined in selectors.py ...
-    unanswered_messages = serializers.SerializerMethodField() # Will be defined in selectors.py ...
+    last_message_time = serializers.DateTimeField(read_only=True)
+    # unanswered_messages = serializers.SerializerMethodField() # Will be defined in ...
 
     class Meta:
         model = Ticket
-        fields = ["id", "order_id", "customer", "status", "created_at", "last_message_time", "unanswered_messages"]
+        fields = ["id", "order_id", "customer", "status", "created_at", "last_message_time"]
 
 
 class MessageAttachmentSerializer(serializers.ModelSerializer):

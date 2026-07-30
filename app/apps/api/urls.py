@@ -1,9 +1,13 @@
 from django.urls import path
-from apps.tickets.views import TicketCreateAPIView
+from apps.tickets.views import CustomerTicketListCreateAPIView
+from apps.orders.views import OrderListAPIView
+
 
 
 app_name = 'api'
 
 urlpatterns = [
-    path( "tickets/", TicketCreateAPIView.as_view(), name="ticket-create"),
+    path( "orders/", OrderListAPIView.as_view(), name="order-list"),
+    path( "tickets/", CustomerTicketListCreateAPIView.as_view(), name="customer-ticket-list-create"),
+
 ]

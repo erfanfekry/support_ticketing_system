@@ -1,11 +1,14 @@
 from rest_framework import serializers
-from .models import *
+from .models import Order
+from apps.users.models import Driver
+from apps.users.serializers import UserSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    customer = UserSerializer()
     class Meta:
             model = Order
-            fields = ["id", "name", "phone", "vehicle_number"]
+            fields = ["id", "customer", "driver", "status", "delivered_at", "created_at"]
 
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:

@@ -22,3 +22,6 @@ class Order(models.Model):
             models.Index(fields=['status']),
             models.Index(fields=['created_at'])
         ]
+
+    def __str__(self):
+        return str(self.customer) + ' at ' + str(self.created_at.date())
