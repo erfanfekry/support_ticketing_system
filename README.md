@@ -45,12 +45,17 @@ Create a `.env` file in the project root.
 Example:
 
 ```env
+# PostgreSQL
 POSTGRES_DB=support_ticket_db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
 
-DJANGO_SECRET_KEY=your-secret-key
+# Django
+DJANGO_SECRET_KEY=dummy_secret_key
 DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
 ## Build and start the application
