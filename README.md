@@ -34,7 +34,7 @@ A Django REST Framework application for managing customer support tickets relate
 ## Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/<repository-name>.git
+git clone https://github.com/erfanfekry/support_ticketing_system.git
 cd <repository-name>
 ```
 
