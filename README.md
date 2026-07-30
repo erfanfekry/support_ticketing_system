@@ -35,7 +35,7 @@ A Django REST Framework application for managing customer support tickets relate
 
 ```bash
 git clone https://github.com/erfanfekry/support_ticketing_system.git
-cd <repository-name>
+cd support_ticketing_system
 ```
 
 ## Configure environment variables
