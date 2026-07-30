@@ -217,3 +217,27 @@ The project follows a layered architecture to separate responsibilities:
 * **Services** contain business logic such as creating ticket messages and sending notifications.
 
 This structure keeps views lightweight, improves maintainability, and simplifies testing.
+
+---
+
+## Time Spent
+
+Approximately **15-20hours**.
+
+The majority of the time was spent designing the project architecture, implementing the ticket workflow, writing the REST API, integrating Docker, PostgreSQL, Nginx, Swagger/OpenAPI documentation, and testing the application.
+
+## Assumptions
+
+* Each order can have at most one support ticket.
+* Customers may only create tickets for their own orders.
+* Ticket creation rules depend on the order status as specified in the assignment.
+* Email notifications use Django's console email backend.
+* SMS notifications are represented by a notification service stub and can be integrated with a real SMS provider.
+* Sample data is provided through a Django fixture to simplify evaluation.
+
+## Trade-offs / Items Left Out
+
+* The ticket re-open endpoint was not implemented due to time constraints.
+* SMS delivery is represented as a service abstraction rather than integrating with a third-party provider.
+* The project is intended as a backend API and therefore does not include a frontend application.
+
