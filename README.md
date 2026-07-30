@@ -29,6 +29,58 @@ A Django REST Framework application for managing customer support tickets relate
 
 ---
 
+# Getting Started
+
+## Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/<repository-name>.git
+cd <repository-name>
+```
+
+## Configure environment variables
+
+Create a `.env` file in the project root.
+
+Example:
+
+```env
+POSTGRES_DB=support_ticket_db
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+
+DJANGO_SECRET_KEY=your-secret-key
+DJANGO_DEBUG=False
+```
+
+## Build and start the application
+
+```bash
+docker compose up --build
+```
+
+The application will automatically:
+
+* Build the Docker images
+* Start PostgreSQL
+* Apply database migrations
+* Collect static files
+* Start Gunicorn
+* Start Nginx
+
+## Stop the application
+
+```bash
+docker compose down
+```
+
+To also remove the database volume:
+
+```bash
+docker compose down -v
+```
+
+
 # Running the Project
 
 ## Prerequisites
