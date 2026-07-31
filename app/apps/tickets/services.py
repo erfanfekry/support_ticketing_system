@@ -3,13 +3,7 @@ from rest_framework.validators import ValidationError
 from django.db import transaction
 from .validators import TicketValidator
 from .models import Ticket, TicketMessage, MessageAttachment
-
-
-class NotificationService: # will be defined
-    @classmethod
-    def ticket_message_created(cls, ticket, message, sender):
-        pass
-
+from apps.notifications.services import NotificationService
 
 class TicketService:
 
