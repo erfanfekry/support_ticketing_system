@@ -7,7 +7,7 @@ import os
 class TicketValidator:
 
     @classmethod
-    def validate_create(cls, order, data):
+    def _validate_create(cls, order, data):
         cls._validate_order_has_no_ticket(order)
         status = order.status
 
@@ -79,7 +79,20 @@ class TicketValidator:
     @classmethod
     def _validate_add_message(cls, ticket, data):
         cls._validate_ticket_is_open(ticket)
+
+        status = ticket.order.status
+
+        if status == OrderStatus.DELIVERED:
+            cls._validate_delivered(data)
+        
+        elif status == OrderStatus.SHIPPED:
+             cls._validate_shipped(data)
+        
+        else:
+                cls._validate_default(data)
+        
         data["text"] = (data.get("message")or data.get("description"))
+        
 
 
     @staticmethod

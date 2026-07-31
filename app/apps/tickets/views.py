@@ -49,7 +49,7 @@ class CustomerTicketDetailAPIView(generics.RetrieveAPIView):
 
 class CustomerTicketMessageAPIView(generics.CreateAPIView):
         permission_classes = [IsAuthenticated]
-        serializer_class = CreateTicketMessageSerializer
+        serializer_class = TicketCreateSerializer
 
         def get_queryset(self): 
             return get_customer_tickets(self.request.user)
@@ -63,7 +63,7 @@ class CustomerTicketMessageAPIView(generics.CreateAPIView):
                 ticket = TicketService.add_message_to_existing_ticket(user=request.user,
                                                                       validated_data=serializer.validated_data,
                                                                       ticket_id=ticket_id)
-                response_serializer = self.get_serializer(ticket)
+                response_serializer = TicketDetailSerializer(ticket)
 
                 return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 

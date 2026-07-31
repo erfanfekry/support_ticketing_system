@@ -11,7 +11,7 @@ class TicketService:
     @transaction.atomic
     def create_ticket(cls, *, user, validated_data):
         order = get_order(validated_data["order_id"], user)
-        TicketValidator.validate_create(order, validated_data)
+        TicketValidator._validate_create(order, validated_data)
         ticket = cls._create_ticket(order)
         message = cls._create_message(ticket=ticket, user=user, validated_data=validated_data)
         cls._create_attachment(message=message,validated_data=validated_data)
@@ -25,7 +25,10 @@ class TicketService:
         ticket = get_ticket(ticket_id, user)
         TicketValidator._validate_add_message(ticket, validated_data)
         message = cls._create_message(ticket=ticket, user=user, validated_data=validated_data)
+        cls._create_attachment(message=message, validated_data=validated_data)
         NotificationService.ticket_message_created(ticket=ticket, message=message, sender=user)
+
+        return ticket
 
 
     @staticmethod
