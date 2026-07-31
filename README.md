@@ -80,7 +80,7 @@ A sample fixture is included to make it easy to evaluate the application without
 After starting the containers, load the sample data:
 
 ```bash
-docker compose exec web python manage.py loaddata seed_data
+docker compose exec api python manage.py loaddata seed_data
 ```
 
 The fixture includes:
@@ -100,8 +100,8 @@ If needed, recreate the database with:
 
 ```bash
 docker compose down -v
-docker compose up --build
-docker compose exec web python manage.py loaddata seed_data
+docker compose up -d --build
+docker compose exec api python manage.py loaddata seed_data
 ```
 
 ### Test Credentials
