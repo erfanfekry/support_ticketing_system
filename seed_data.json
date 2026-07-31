@@ -231,7 +231,7 @@
   "pk": 26,
   "fields": {
     "order": 4,
-    "status": "CLSD",
+    "status": "CLOSED",
     "created_at": "2026-07-31T18:53:59.431Z",
     "updated_at": "2026-08-01T20:23:41.285Z",
     "closed_at": null
@@ -253,7 +253,7 @@
   "pk": 28,
   "fields": {
     "order": 5,
-    "status": "CLSD",
+    "status": "CLOSED",
     "created_at": "2026-07-31T19:14:20.435Z",
     "updated_at": "2026-08-01T20:23:41.241Z",
     "closed_at": null
