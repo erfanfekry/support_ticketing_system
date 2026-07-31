@@ -145,7 +145,7 @@ After the application starts:
 
 | Method | Endpoint                      | Description                 |
 | ------ | ----------------------------- | --------------------------- |
-| GET    | `/api/orders/`                | list customer's orders |
+| GET    | `/api/orders/`                | List customer's orders |
 | POST   | `/api/tickets/`               | Create a new support ticket |
 | GET    | `/api/tickets/`               | List customer's tickets     |
 | GET    | `/api/tickets/{id}/`          | Retrieve ticket details     |
@@ -166,6 +166,8 @@ After the application starts:
 Customer endpoints require an authenticated customer.
 
 Admin endpoints require an authenticated staff user.
+
+* You can use the provided **Test Credentials** table to authenticate.
 
 ---
 
