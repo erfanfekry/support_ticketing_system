@@ -20,8 +20,14 @@ def get_user_tickets(user):
     return tickets
 
 
-def get_admin_ticket_list():
-    admin_ticket_list = Ticket.objects.select_related("order", "order__customer").order_by("-created_at")
+def get_admin_ticket_list(request=None):
+    admin_ticket_list = Ticket.objects.select_related("order", "order__customer").order_by("-created_at") \
+    .annotate(last_message_time=Max("messages__created_at__time")) \
+    .prefetch_related(Prefetch("messages", queryset=TicketMessage.objects.order_by("-created_at")))
+
+    if request:
+        if request.query_params.get("delivered") == "true":
+         admin_ticket_list = admin_ticket_list.filter(order__status=OrderStatus.DELIVERED)
 
     return admin_ticket_list
 
@@ -45,8 +51,13 @@ def get_customer_tickets(user):
 
     return customer_tickets
 
-def get_ticket(ticket_id, user):
-    ticket = get_object_or_404(Ticket.objects.select_related("order", "order__customer"),
+def customer_get_ticket(ticket_id, user):
+    ticket = get_object_or_404(Ticket.objects.select_related("order", "order__customer", "order__driver"),
                                     id=ticket_id,
                                     order__customer=user)
+    return ticket
+
+def admin_get_ticket(ticket_id, user):
+    ticket = get_object_or_404(Ticket.objects.select_related("order", "order__customer", "order__driver"),
+                                    id=ticket_id)
     return ticket

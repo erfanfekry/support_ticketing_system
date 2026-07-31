@@ -1,4 +1,4 @@
-from .selectors import get_order, get_ticket
+from .selectors import get_order, customer_get_ticket, admin_get_ticket
 from rest_framework.validators import ValidationError
 from django.db import transaction
 from .validators import TicketValidator
@@ -22,7 +22,7 @@ class TicketService:
     @classmethod
     @transaction.atomic
     def add_message_to_existing_ticket(cls, *, ticket_id, user, validated_data):
-        ticket = get_ticket(ticket_id, user)
+        ticket = customer_get_ticket(ticket_id, user)
         TicketValidator._validate_add_message(ticket, validated_data)
         message = cls._create_message(ticket=ticket, user=user, validated_data=validated_data)
         cls._create_attachment(message=message, validated_data=validated_data)
@@ -47,3 +47,14 @@ class TicketService:
         if not image:
             return
         MessageAttachment.objects.create(message=message, image=image)
+
+    @classmethod
+    @transaction.atomic
+    def reply(cls, *, ticket_id, user, message, attachment=None):
+        ticket = admin_get_ticket(ticket_id, user)
+        ticket_message = TicketMessage.objects.create(ticket=ticket, sender=user, message=message)
+        if attachment:
+            MessageAttachment.objects.create(ticket_message=ticket_message, image=attachment)
+        NotificationService.ticket_message_created(ticket, ticket_message, user)
+
+        return ticket

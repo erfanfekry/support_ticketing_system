@@ -1,11 +1,12 @@
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from apps.tickets.serializers import (TicketCreateSerializer,
                                       TicketListSerializer,
                                       TicketDetailSerializer,
-                                      CreateTicketMessageSerializer)
-from apps.tickets.selectors import get_customer_tickets
+                                      AdminTicketDetailSerializer,
+                                      AdminTicketReplySerializer)
+from apps.tickets.selectors import get_customer_tickets, get_admin_ticket_list
 from apps.tickets.services import TicketService
 from .permissions import IsOwner
 
@@ -51,9 +52,6 @@ class CustomerTicketMessageAPIView(generics.CreateAPIView):
         permission_classes = [IsAuthenticated]
         serializer_class = TicketCreateSerializer
 
-        def get_queryset(self): 
-            return get_customer_tickets(self.request.user)
-
         def post(self, request, ticket_id):
                 """
                 Create a new message for an existing ticket.
@@ -67,5 +65,27 @@ class CustomerTicketMessageAPIView(generics.CreateAPIView):
 
                 return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
+class AdminTicketListAPIView(generics.ListAPIView):
+        permission_classes = [IsAuthenticated, IsAdminUser]
+        serializer_class = TicketListSerializer
+        def get_queryset(self):
+             return get_admin_ticket_list(self.request)
         
+class AdminTicketDetailAPIView(generics.RetrieveAPIView):
+    serializer_class = AdminTicketDetailSerializer
+    permission_classes = [IsAdminUser]
 
+    def get_queryset(self):
+        return get_admin_ticket_list(self.request)
+    
+
+class AdminTicketReplyAPIView(generics.GenericAPIView):
+    serializer_class = AdminTicketReplySerializer
+    permission_classes = [IsAdminUser]
+
+    def post(self, request, ticket_id):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        ticket_message = TicketService.reply(ticket_id=ticket_id, user=request.user, **serializer.validated_data)
+
+        return Response(TicketDetailSerializer(ticket_message).data, status=status.HTTP_201_CREATED)

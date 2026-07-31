@@ -6,6 +6,6 @@ from .models import Order, Driver
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'customer', 'driver', 'status', 'delivered_at', 'created_at']
     list_filter = ['status', 'created_at']
-    list_editable = ['status']
+    list_editable = ['driver', 'status']
 
 
