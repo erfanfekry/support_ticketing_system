@@ -20,7 +20,7 @@ class TicketValidator:
         else:
             cls._validate_default(data)
 
-        data["text"] = (data.get("message")or data.get("description"))
+        data["text"] = (data.get("message") or data.get("description"))
 
 
         
@@ -31,13 +31,14 @@ class TicketValidator:
                 raise ValidationError({"order_id": "A support ticket already exists for this order."})
 
     @classmethod
-    def _validate_delivered(cls, data):
-        if not data.get("description"):
+    def _validate_delivered(cls, data, ticket=None):
+        if not data.get("description") and not ticket:
             raise ValidationError({"description": "This field is required."})
-        if not data.get("image"):
+        if not data.get("image") and not ticket:
             raise ValidationError({"image": "This field is required."})
         image = data.get("image")
-        cls._validate_image(image)
+        if image:
+            cls._validate_image(image)
 
     @staticmethod
     def _validate_shipped(data):
@@ -83,7 +84,7 @@ class TicketValidator:
         status = ticket.order.status
 
         if status == OrderStatus.DELIVERED:
-            cls._validate_delivered(data)
+            cls._validate_delivered(data, ticket)
         
         elif status == OrderStatus.SHIPPED:
              cls._validate_shipped(data)

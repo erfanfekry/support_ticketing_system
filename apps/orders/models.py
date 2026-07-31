@@ -24,4 +24,4 @@ class Order(models.Model):
         ]
 
     def __str__(self):
-        return str(self.customer) + ' at ' + str(self.created_at.date())
+        return str(self.customer) + ' at ' + str(self.created_at.time())

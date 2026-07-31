@@ -59,8 +59,8 @@ class CustomerTicketMessageAPIView(generics.CreateAPIView):
                 serializer = self.get_serializer(data=request.data)
                 serializer.is_valid(raise_exception=True)
                 ticket = TicketService.add_message_to_existing_ticket(user=request.user,
-                                                                      validated_data=serializer.validated_data,
-                                                                      ticket_id=ticket_id)
+                                                                      ticket_id=ticket_id,
+                                                                      validated_data=serializer.validated_data)
                 response_serializer = TicketDetailSerializer(ticket)
 
                 return Response(response_serializer.data, status=status.HTTP_201_CREATED)

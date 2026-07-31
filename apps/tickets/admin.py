@@ -19,7 +19,7 @@ class TicketAdmin(admin.ModelAdmin):
 
 @admin.register(TicketMessage)
 class TicketMessageAdmin(admin.ModelAdmin):
-    list_display = ['id', 'ticket', 'sender', 'message', 'created_at']
+    list_display = ['id', 'ticket_id', 'ticket', 'sender', 'message', 'created_at']
     list_filter = ['sender', 'created_at']
     inlines = [MessageAttachmentline]
 
