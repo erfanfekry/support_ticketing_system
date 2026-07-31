@@ -61,7 +61,7 @@ POSTGRES_PORT=5432
 ## Build and start the application
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
 The application will automatically:
