@@ -1,5 +1,6 @@
 from rest_framework.exceptions import ValidationError
 from apps.orders.models import OrderStatus
+from apps.tickets.models import TicketStatus
 import os
 
 
@@ -18,6 +19,7 @@ class TicketValidator:
 
         else:
             cls._validate_default(data)
+
         data["text"] = (data.get("message")or data.get("description"))
 
 
@@ -73,3 +75,14 @@ class TicketValidator:
         extension = os.path.splitext(image.name)[1].lower()
         if extension not in ALLOWED_EXTENSIONS:
             raise ValidationError({"image": ("Only JPG, JPEG and PNG images are allowed.")})
+
+    @classmethod
+    def _validate_add_message(cls, ticket, data):
+        cls._validate_ticket_is_open(ticket)
+        data["text"] = (data.get("message")or data.get("description"))
+
+
+    @staticmethod
+    def _validate_ticket_is_open(ticket):
+        if ticket.status == TicketStatus.CLOSED:
+            raise ValidationError({"ticket": "Cannot add messages to a closed ticket."})

@@ -43,4 +43,9 @@ class TicketDetailSerializer(serializers.ModelSerializer):
     driver = DriverSerializer(source="order.driver", read_only=True)
     class Meta:
         model = Ticket
-        fields = ["id", "status", "created_at", "messages", "driver"]
+        fields = ["id", "status", "order_id", "created_at", "driver", "messages"]
+
+class CreateTicketMessageSerializer(serializers.Serializer):
+    message = serializers.CharField()
+    image = serializers.ImageField(required=False, allow_null=True)
+    

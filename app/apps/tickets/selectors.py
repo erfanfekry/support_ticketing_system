@@ -44,3 +44,9 @@ def get_customer_tickets(user):
     .annotate(last_message_time=Max("messages__created_at__time")).filter(order__customer=user)
 
     return customer_tickets
+
+def get_ticket(ticket_id, user):
+    ticket = get_object_or_404(Ticket.objects.select_related("order", "order__customer"),
+                                    id=ticket_id,
+                                    order__customer=user)
+    return ticket
