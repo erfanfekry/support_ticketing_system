@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.orders', 
     'apps.notifications',
     'rest_framework',
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -131,9 +132,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     "DATETIME_FORMAT": "%Y-%m-%d %H:%M",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Support Ticket API",
+    "DESCRIPTION": "Technical assessment API",
+    "VERSION": "1.0.0",
+}

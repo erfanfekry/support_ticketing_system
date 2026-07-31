@@ -5,9 +5,7 @@ from apps.tickets.views import CustomerTicketListCreateAPIView, \
                                AdminTicketListAPIView, \
                                AdminTicketDetailAPIView, \
                                AdminTicketReplyAPIView
-                               
 
-                               
 from apps.orders.views import OrderListAPIView
 
 
@@ -23,6 +21,5 @@ urlpatterns = [
     path( "admin/tickets/<int:pk>/", AdminTicketDetailAPIView.as_view(), name="admin-ticket-detail"),
     path( "admin/tickets/<int:ticket_id>/reply/", AdminTicketReplyAPIView.as_view(), name="admin-ticket-reply"),
 
-
-
+    
 ]

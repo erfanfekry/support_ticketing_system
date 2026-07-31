@@ -8,7 +8,7 @@ from apps.tickets.serializers import (TicketCreateSerializer,
                                       AdminTicketReplySerializer)
 from apps.tickets.selectors import get_customer_tickets, get_admin_ticket_list
 from apps.tickets.services import TicketService
-from .permissions import IsOwner
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 
 class CustomerTicketListCreateAPIView(generics.GenericAPIView):
@@ -70,7 +70,16 @@ class AdminTicketListAPIView(generics.ListAPIView):
         serializer_class = TicketListSerializer
         def get_queryset(self):
              return get_admin_ticket_list(self.request)
-        
+
+
+@extend_schema(
+    tags=["Admin Tickets"],
+    summary="Ticket details",
+    description="Retrieve a ticket including driver information and messages.",
+    responses={
+        200: AdminTicketDetailSerializer,
+    },
+)      
 class AdminTicketDetailAPIView(generics.RetrieveAPIView):
     serializer_class = AdminTicketDetailSerializer
     permission_classes = [IsAdminUser]
