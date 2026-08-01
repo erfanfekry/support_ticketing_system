@@ -5,7 +5,6 @@ from apps.orders.models import Order
 
 class TicketStatus(models.TextChoices):
     OPEN = 'OPEN', 'Open'
-    InProgress = 'PEND', 'Pending'
     CLOSED = 'CLSD', 'Closed'
 
 class Ticket(models.Model):

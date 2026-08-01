@@ -84,3 +84,6 @@ class AdminTicketDetailSerializer(serializers.ModelSerializer):
 class AdminTicketReplySerializer(serializers.Serializer):
     message = serializers.CharField(max_length=5000)
     attachment = serializers.FileField(required=False)
+
+class TicketReopenSerializer(serializers.Serializer):
+    pass

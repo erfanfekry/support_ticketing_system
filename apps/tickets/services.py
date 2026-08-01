@@ -2,7 +2,7 @@ from .selectors import get_order, customer_get_ticket, admin_get_ticket
 from rest_framework.validators import ValidationError
 from django.db import transaction
 from .validators import TicketValidator
-from .models import Ticket, TicketMessage, MessageAttachment
+from .models import Ticket, TicketStatus, TicketMessage, MessageAttachment
 from apps.notifications.services import NotificationService
 
 class TicketService:
@@ -48,9 +48,9 @@ class TicketService:
             return
         MessageAttachment.objects.create(message=message, image=image)
 
-    @classmethod
+    @staticmethod
     @transaction.atomic
-    def reply(cls, *, ticket_id, user, message, attachment=None):
+    def reply(*, ticket_id, user, message, attachment=None):
         ticket = admin_get_ticket(ticket_id, user)
         ticket_message = TicketMessage.objects.create(ticket=ticket, sender=user, message=message)
         if attachment:
@@ -58,3 +58,10 @@ class TicketService:
         NotificationService.ticket_message_created(ticket, ticket_message, user)
 
         return ticket
+
+    @staticmethod
+    def reopen(*, ticket_id, user):
+        ticket = customer_get_ticket(ticket_id, user)
+        TicketValidator._validate_ticket_is_closed(ticket)
+        ticket.status = TicketStatus.OPEN
+        ticket.save(update_fields=["status"])

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from apps.tickets.serializers import (TicketCreateSerializer,
                                       TicketListSerializer,
                                       TicketDetailSerializer,
+                                      TicketReopenSerializer,
                                       AdminTicketDetailSerializer,
                                       AdminTicketReplySerializer)
 from apps.tickets.selectors import get_customer_tickets, get_admin_ticket_list
@@ -98,3 +99,12 @@ class AdminTicketReplyAPIView(generics.GenericAPIView):
         ticket_message = TicketService.reply(ticket_id=ticket_id, user=request.user, **serializer.validated_data)
 
         return Response(TicketDetailSerializer(ticket_message).data, status=status.HTTP_201_CREATED)
+
+class CustomerTicketReopenAPIView(generics.GenericAPIView):
+    serializer_class = TicketReopenSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, ticket_id):
+        TicketService.reopen(ticket_id=ticket_id, user=request.user)
+
+        return Response({"detail": f"Ticket with id={ticket_id} was reopened successfully."}, status=status.HTTP_200_OK)

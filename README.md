@@ -37,31 +37,12 @@ A Django REST Framework application for managing customer support tickets relate
 git clone https://github.com/erfanfekry/support_ticketing_system.git
 cd support_ticketing_system
 ```
-
-## Configure environment variables
-
-Create a `.env` file in the project root.
-
-Example:
-
-```env
-# Django
-DJANGO_SECRET_KEY=dummy_secret_key
-DJANGO_DEBUG=False
-DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
-
-# PostgreSQL
-POSTGRES_DB=support_ticket_db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-```
+---
 
 ## Build and start the application
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
 The application will automatically:
@@ -80,7 +61,7 @@ A sample fixture is included to make it easy to evaluate the application without
 After starting the containers, load the sample data:
 
 ```bash
-docker compose exec web python manage.py loaddata seed_data
+docker compose exec api python manage.py loaddata seed_data
 ```
 
 The fixture includes:
@@ -100,8 +81,8 @@ If needed, recreate the database with:
 
 ```bash
 docker compose down -v
-docker compose up --build
-docker compose exec web python manage.py loaddata seed_data
+docker compose up -d --build
+docker compose exec api python manage.py loaddata seed_data
 ```
 
 ### Test Credentials

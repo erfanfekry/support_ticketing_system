@@ -100,3 +100,8 @@ class TicketValidator:
     def _validate_ticket_is_open(ticket):
         if ticket.status == TicketStatus.CLOSED:
             raise ValidationError({"ticket": "Cannot add messages to a closed ticket."})
+
+    @staticmethod
+    def _validate_ticket_is_closed(ticket):
+         if ticket.status == TicketStatus.OPEN:
+              raise ValidationError({"ticket": "Ticket is already open!."})
