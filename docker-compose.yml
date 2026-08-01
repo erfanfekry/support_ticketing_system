@@ -38,7 +38,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      - postgres
 
   nginx:
     image: nginx:1.27-alpine
@@ -50,7 +50,7 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     depends_on:
-      - web
+      - api
 
 volumes:
   postgres_data:
