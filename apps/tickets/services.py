@@ -57,7 +57,7 @@ class TicketService:
             MessageAttachment.objects.create(ticket_message=ticket_message, image=attachment)
         NotificationService.ticket_message_created(ticket, ticket_message, user)
 
-        return ticket_message
+        return ticket
 
     @staticmethod
     def reopen(*, ticket_id, user):
