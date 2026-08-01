@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$1000000$rYKgPJurapdlYGP0bbVxmi$ODoFs+tJIWOV8m5mOqklIfvmsUHLZq77gQyLzIaP3lI=",
-    "last_login": "2026-07-31T17:54:35Z",
+    "last_login": "2026-08-01T20:10:11.826Z",
     "is_superuser": true,
     "username": "Admin",
     "first_name": "Erfan",
@@ -166,8 +166,8 @@
   "fields": {
     "customer": 3,
     "driver": 2,
-    "status": "DLVD",
-    "delivered_at": null,
+    "status": "DELIVERED",
+    "delivered_at": "2026-07-31T19:00:00Z",
     "created_at": "2026-07-30T12:34:02.388Z"
   }
 },
@@ -177,8 +177,8 @@
   "fields": {
     "customer": 4,
     "driver": 1,
-    "status": "DLVD",
-    "delivered_at": null,
+    "status": "DELIVERED",
+    "delivered_at": "2026-07-31T18:00:00Z",
     "created_at": "2026-07-30T14:13:33.960Z"
   }
 },
@@ -188,7 +188,7 @@
   "fields": {
     "customer": 3,
     "driver": null,
-    "status": "SHPD",
+    "status": "SHIPPED",
     "delivered_at": null,
     "created_at": "2026-07-30T16:39:22.391Z"
   }
@@ -199,7 +199,7 @@
   "fields": {
     "customer": 2,
     "driver": null,
-    "status": "APAY",
+    "status": "AWAITING PAYMENT",
     "delivered_at": null,
     "created_at": "2026-07-31T12:39:17.131Z"
   }
@@ -222,7 +222,7 @@
     "order": 2,
     "status": "OPEN",
     "created_at": "2026-07-31T18:08:42.888Z",
-    "updated_at": "2026-07-31T18:08:42.888Z",
+    "updated_at": "2026-08-01T19:18:26.502Z",
     "closed_at": null
   }
 },
@@ -231,9 +231,9 @@
   "pk": 26,
   "fields": {
     "order": 4,
-    "status": "OPEN",
+    "status": "CLSD",
     "created_at": "2026-07-31T18:53:59.431Z",
-    "updated_at": "2026-07-31T18:53:59.431Z",
+    "updated_at": "2026-08-01T20:23:41.285Z",
     "closed_at": null
   }
 },
@@ -253,9 +253,9 @@
   "pk": 28,
   "fields": {
     "order": 5,
-    "status": "OPEN",
+    "status": "CLSD",
     "created_at": "2026-07-31T19:14:20.435Z",
-    "updated_at": "2026-07-31T19:14:20.435Z",
+    "updated_at": "2026-08-01T20:23:41.241Z",
     "closed_at": null
   }
 },
