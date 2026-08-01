@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  db:
+  postgres:
     image: postgres:16
-    container_name: db
+    container_name: support-ticket-postgres
     restart: unless-stopped
     env_file:
       - .env
@@ -12,11 +12,12 @@ services:
     ports:
       - "5432:5432"
 
-  web:
+  api:
+    image: support-ticket-api:latest
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: web
+    container_name: support-ticket-api
     command: >
       sh -c "
       until pg_isready -h db -p 5432 -U postgres; do
@@ -41,7 +42,7 @@ services:
 
   nginx:
     image: nginx:1.27-alpine
-    container_name: nginx
+    container_name: support-ticket-nginx
     ports:
       - "80:80"
     volumes:

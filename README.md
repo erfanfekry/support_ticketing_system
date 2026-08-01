@@ -167,7 +167,7 @@ Customer endpoints require an authenticated customer.
 
 Admin endpoints require an authenticated staff user.
 
-* You can use the provided **Test Credentials** table to authenticate.
+* You can load the seed data and use the provided **Test Credentials** table to authenticate.
 
 ---
 
