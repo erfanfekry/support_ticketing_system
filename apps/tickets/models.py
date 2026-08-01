@@ -5,11 +5,11 @@ from apps.orders.models import Order
 
 class TicketStatus(models.TextChoices):
     OPEN = 'OPEN', 'Open'
-    CLOSED = 'CLSD', 'Closed'
+    CLOSED = 'CLOSED', 'Closed'
 
 class Ticket(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="ticket")
-    status = models.CharField(max_length=4, choices=TicketStatus.choices, default=TicketStatus.OPEN)
+    status = models.CharField(max_length=10, choices=TicketStatus.choices, default=TicketStatus.OPEN)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     closed_at = models.DateTimeField(null=True, blank=True)
