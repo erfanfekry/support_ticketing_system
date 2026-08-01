@@ -131,6 +131,8 @@ After the application starts:
 | GET    | `/api/tickets/`               | List customer's tickets     |
 | GET    | `/api/tickets/{id}/`          | Retrieve ticket details     |
 | POST   | `/api/tickets/{id}/messages/` | Add a message to a ticket   |
+| POST   | `/api/tickets/{id}/reopen/`   | Re-opens a closed ticket    |
+
 
 ## Admin
 
@@ -226,7 +228,6 @@ The majority of the time was spent designing the project architecture, implement
 
 # Trade-offs / Items Left Out
 
-* The ticket re-open endpoint was not implemented due to time constraints.
 * SMS delivery is represented as a service abstraction rather than integrating with a third-party provider.
 * The project is intended as a backend API and therefore does not include a frontend application.
 
