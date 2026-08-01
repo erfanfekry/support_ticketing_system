@@ -131,7 +131,7 @@ After the application starts:
 | GET    | `/api/tickets/`               | List customer's tickets     |
 | GET    | `/api/tickets/{id}/`          | Retrieve ticket details     |
 | POST   | `/api/tickets/{id}/messages/` | Add a message to a ticket   |
-| POST   | `/api/tickets/{id}/reopen/`   | Re-opens a closed ticket    |
+| POST   | `/api/tickets/{id}/reopen/`   | Re-open a closed ticket    |
 
 
 ## Admin
