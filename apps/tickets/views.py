@@ -9,7 +9,7 @@ from apps.tickets.serializers import (TicketCreateSerializer,
                                       AdminTicketReplySerializer)
 from apps.tickets.selectors import get_customer_tickets, get_admin_ticket_list
 from apps.tickets.services import TicketService
-from drf_spectacular.utils import extend_schema, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample
 
 
 class CustomerTicketListCreateAPIView(generics.GenericAPIView):
@@ -89,6 +89,32 @@ class AdminTicketDetailAPIView(generics.RetrieveAPIView):
         return get_admin_ticket_list(self.request)
     
 
+@extend_schema(
+    tags=["Admin Tickets"],
+    summary="Reply to a support ticket",
+    description=(
+        "Allows an administrator to post a reply to an existing support ticket. "
+        "A reply may include a text message and an optional file attachment. "
+        "Sending a reply triggers the configured customer notifications."
+    ),
+    request=AdminTicketReplySerializer,
+    responses={
+        201: TicketDetailSerializer,
+        400: OpenApiResponse(description="Invalid request."),
+        403: OpenApiResponse(description="Only administrators can access this endpoint."),
+        404: OpenApiResponse(description="Ticket not found."),
+    },
+    examples=[
+        OpenApiExample(
+            "Reply",
+            summary="Reply with attachment",
+            value={
+                "message": "Your issue has been resolved. Please verify and let us know if you need anything else."
+            },
+            request_only=True,
+        )
+    ],
+)
 class AdminTicketReplyAPIView(generics.GenericAPIView):
     serializer_class = AdminTicketReplySerializer
     permission_classes = [IsAdminUser]
